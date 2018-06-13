@@ -1,0 +1,371 @@
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width initial-scale=1.0">
+  <link rel="shortcut icon" href="icon.ico" >
+  <title>CTI - Status</title>
+
+  <!-- JS  -->
+  <script type="text/javascript">
+  //<![CDATA[
+  var events = events || [];
+  //]]>
+</script>
+<!--JS-->
+
+<!-- CSS  -->
+<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+<link rel="stylesheet" href="../css/pfSense.css?v=1510914901" />
+<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/LocalCss.css">
+
+<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+
+<body background="imagens\403441.gif" id="2">
+  <nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="#" class="brand-logo"><img class="rounded img-thumbnail " alt="..." src="imagens\navbar-brand3.png"></a>
+
+
+    </div>
+  </nav>
+  <br><br><br><br>
+
+  <div class="wrapper">
+
+
+    <div class="box a thumbnail rounded"><div id="traffic-chart-wan" class="d3-chart traffic-widget-chart"><svg></svg></div></div>
+    <div  class="box b thumbnail rounded"><div id="traffic-chart-opt1" class="d3-chart traffic-widget-chart"><svg></svg></div></div>
+    <div  class="box c thumbnail rounded"><div id="traffic-chart-opt3" class="d3-chart traffic-widget-chart"><svg></svg></div></div>
+    <div  class="box d thumbnail rounded"><div id="traffic-chart-opt4" class="d3-chart traffic-widget-chart"><svg></svg></div></div>
+    <div  class="box e thumbnail rounded"><div id="traffic-chart-opt5" class="d3-chart traffic-widget-chart"><svg></svg></div></div>
+    <div  class="box f thumbnail rounded"><div id="traffic-chart-opt6" class="d3-chart traffic-widget-chart"><svg></svg></div></div>
+    <div  class="box g thumbnail rounded"><div id="traffic-chart-opt8" class="d3-chart traffic-widget-chart"><svg></svg></div></div>
+    <div  class="box h thumbnail rounded"><div id="traffic-chart-opt11" class="d3-chart traffic-widget-chart"><svg></svg></div></div>
+
+  </div>
+  <br><br><br><br><br> <br><br><br><br><br> <br><br><br><br><br> <br><br><br><br><br> <br><br>
+
+  
+  <div class="elastix">
+    <iframe  class="grafico" src="https://192.168.2.5/fw_fop/index.php?menu=fop" scrolling="auto" marginwidth="0" title="iframe example 1" >
+      <p>ERROR</p>
+    </iframe>
+  </div>
+
+  </div>
+   <div class="elastix2">
+    <iframe  class="grafico2" src="https://192.168.2.5/fw_fop/index.php?menu=fop" scrolling="auto" marginwidth="0" title="iframe example 1" >
+      <p>ERROR</p>
+    </iframe>
+  </div>
+
+  </div>
+
+  <div class="container">
+
+
+    <div class="container static" >
+
+
+      <div class="row">
+
+        <div id="widget-traffic_graphs-0_panel-body" class="panel-body collapse in">
+          <script src="../vendor/d3/d3.min.js?v=1510914902"></script>
+          <script src="../vendor/nvd3/nv.d3.js?v=1510914902"></script>
+          <script src="../vendor/visibility/visibility-1.2.3.min.js?v=1510914902"></script>
+          <link href="../vendor/nvd3/teste.kiel.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+          <div id="traffic-chart-error" class="alert alert-danger" style="display: none;"></div>
+          <!--<div id="traffic-chart-opt11" class="d3-chart traffic-widget-chart">  <svg></svg></div> -->
+          <!-- close the body we're wrapped in and add a configuration-panel -->
+        </div>
+
+        <div id="widget-traffic_graphs-0_panel-footer" class="panel-footer collapse">
+
+
+
+          <script type="text/javascript">
+//<![CDATA[
+// Used by /js/traffic-graphs.js to display description from name
+var graph_interfacenames = {"wan":"GMAES","lan":"LAN","opt1":"RURALWEB","opt3":"VLAN 2","opt4":"VLAN3","opt5":"VLAN4","opt6":"VLAN5","opt7":"VLAN6","opt8":"VLAN7","opt11":"WIFI"};
+
+events.push(function() {
+
+  //var InterfaceString = "wan|opt1";
+  //var RealInterfaceString = "bge0|re1";
+  var InterfaceString = "wan|opt1|opt3|opt4|opt5|opt6|opt8|opt11";
+  var RealInterfaceString = "bge0|re1|re0.2|re0.3|re0.4|re0.5|re0.7|ue0";
+  window.graph_backgroundupdate = true;
+
+  window.interval = 1;
+  window.invert = true;
+  window.size = 8;
+  window.smoothing = 0;
+  window.interfaces = InterfaceString.split("|").filter(function(entry) { return entry.trim() != ''; });
+  window.realinterfaces = RealInterfaceString.split("|").filter(function(entry) { return entry.trim() != ''; });
+
+  graph_init();
+  graph_visibilitycheck();
+
+  set_widget_checkbox_events("#widget-traffic_graphs-0_panel-footer [id^=show]", "showalltgitems");
+});
+//]]>
+</script>
+
+<script src="../js/traffic-graphs.tela.js?v=1510914901"></script>
+</div>
+</div>
+
+
+
+<script type="text/javascript">
+//<![CDATA[
+
+dirty = false;
+function updateWidgets(newWidget) {
+  var sequence = '';
+
+  $('.container .col-md-6').each(function(idx, col) {
+    $('.panel', col).each(function(idx, widget) {
+      var isOpen = $('.panel-body', widget).hasClass('in');
+      var widget_basename = widget.id.split('-')[1];
+
+      // Only save details for panels that have id's like'widget-*'
+      // Some widgets create other panels, so ignore any of those.
+      if ((widget.id.split('-')[0] == 'widget') && (typeof widget_basename !== 'undefined')) {
+        sequence += widget_basename + ':' + col.id.split('-')[1] + ':' + (isOpen ? 'open' : 'close') + ':' + widget.id.split('-')[2] + ',';
+      }
+    });
+  });
+
+  if (typeof newWidget !== 'undefined') {
+    // The system_information widget is always added to column one. Others go in column two
+    if (newWidget == "system_information") {
+      sequence += newWidget.split('-')[0] + ':' + 'col1:open:next';
+    } else {
+      sequence += newWidget.split('-')[0] + ':' + 'col2:open:next';
+    }
+  }
+
+  $('input[name=sequence]', $('#widgetSequence_form')).val(sequence);
+}
+
+// Determine if all the checkboxes are checked
+function are_all_checked(checkbox_panel_ref) {
+  var allBoxesChecked = true;
+  $(checkbox_panel_ref).each(function() {
+    if ((this.type == 'checkbox') && !this.checked) {
+      allBoxesChecked = false;
+    }
+  });
+  return allBoxesChecked;
+}
+
+// If the checkboxes are all checked, then clear them all.
+// Otherwise set them all.
+function set_clear_checkboxes(checkbox_panel_ref) {
+  checkTheBoxes = !are_all_checked(checkbox_panel_ref);
+
+  $(checkbox_panel_ref).each(function() {
+    $(this).prop("checked", checkTheBoxes);
+  });
+}
+
+// Set the given id to All or None button depending if the checkboxes are all checked.
+function set_all_none_button(checkbox_panel_ref, all_none_button_id) {
+  if (are_all_checked(checkbox_panel_ref)) {
+    text = "None";
+  } else {
+    text = "All";
+  }
+
+  $("#" + all_none_button_id).html('<i class="fa fa-undo icon-embed-btn"></i>' + text);
+}
+
+// Setup the necessary events to manage the All/None button and included checkboxes
+// used for selecting the items to show on a widget.
+function set_widget_checkbox_events(checkbox_panel_ref, all_none_button_id) {
+  set_all_none_button(checkbox_panel_ref, all_none_button_id);
+
+  $(checkbox_panel_ref).change(function() {
+    set_all_none_button(checkbox_panel_ref, all_none_button_id);
+  });
+
+  $("#" + all_none_button_id).click(function() {
+    set_clear_checkboxes(checkbox_panel_ref);
+    set_all_none_button(checkbox_panel_ref, all_none_button_id);
+  });
+}
+
+// ---------------------Centralized widget refresh system -------------------------------------------
+// These need to live outsie of the events.push() function to enable the widgets to see them
+var ajaxspecs = new Array();  // Array to hold widget refresh specifications (objects )
+var ajaxidx = 0;
+var ajaxmutex = false;
+var ajaxcntr = 0;
+
+// Add a widget refresh object to the array list
+function register_ajax(ws) {
+  ajaxspecs.push(ws);
+}
+// ---------------------------------------------------------------------------------------------------
+
+events.push(function() {
+  // Make panels destroyable
+  $('.container .panel-heading a[data-toggle="close"]').each(function (idx, el) {
+    $(el).on('click', function(e) {
+      $(el).parents('.panel').remove();
+      updateWidgets();
+      // Submit the form save/display all selected widgets
+      $('[name=widgetForm]').submit();
+    })
+  });
+
+  // Make panels sortable
+  $('.container .col-md-6').sortable({
+    handle: '.panel-heading',
+    cursor: 'grabbing',
+    connectWith: '.container .col-md-6',
+    update: function(){
+      dirty = true;
+      $('#btnstore').removeClass('invisible');
+    }
+  });
+
+  // On clicking a widget to install . .
+  $('[id^=btnadd-]').click(function(event) {
+    // Add the widget name to the list of displayed widgets
+    updateWidgets(this.id.replace('btnadd-', ''));
+
+    // Submit the form save/display all selected widgets
+    $('[name=widgetForm]').submit();
+  });
+
+
+  $('#btnstore').click(function() {
+    updateWidgets();
+    dirty = false;
+    $(this).addClass('invisible');
+    $('[name=widgetForm]').submit();
+  });
+
+  // provide a warning message if the user tries to change page before saving
+  $(window).bind('beforeunload', function(){
+    if (dirty) {
+      return ("One or more widgets have been moved but have not yet been saved");
+    } else {
+      return undefined;
+    }
+  });
+
+  // Show the fa-save icon in the breadcrumb bar if the user opens or closes a panel (In case he/she wants to save the new state)
+  // (Sometimes this will cause us to see the icon when we don't need it, but better that than the other way round)
+  $('.panel').on('hidden.bs.collapse shown.bs.collapse', function (e) {
+    if (e.currentTarget.id != 'widget-available') {
+      $('#btnstore').removeClass("invisible");
+    }
+  });
+
+  // --------------------- Centralized widget refresh system ------------------------------
+  ajaxtimeout = false;
+
+  function make_ajax_call(wd) {
+    ajaxmutex = true;
+
+    $.ajax({
+      type: 'POST',
+      url: wd.url,
+      dataType: 'html',
+      data: wd.parms,
+
+      success: function(data){
+        if (data.length > 0 ) {
+          // If the session has timed out, display a pop-up
+          if (data.indexOf("SESSION_TIMEOUT") === -1) {
+            wd.callback(data);
+          } else {
+            if (ajaxtimeout === false) {
+              ajaxtimeout = true;
+              alert("The dashboard web session has timed out.\nIt will not update until you refresh the page and log-in again.");
+            }
+          }
+        }
+
+        ajaxmutex = false;
+      },
+
+      error: function(e){
+//        alert("Error: " + e);
+ajaxmutex = false;
+}
+});
+  }
+
+  // Loop through each AJAX widget refresh object, make the AJAX call and pass the
+  // results back to the widget's callback function
+  function executewidget() {
+    if (ajaxspecs.length > 0) {
+      var freq = ajaxspecs[ajaxidx].freq; // widget can specifify it should be called freq times around hte loop
+
+      if (!ajaxmutex) {
+        if (((ajaxcntr % freq) === 0) && (typeof ajaxspecs[ajaxidx].callback === "function" )) {
+          make_ajax_call(ajaxspecs[ajaxidx]);
+        }
+
+        if (++ajaxidx >= ajaxspecs.length) {
+          ajaxidx = 0;
+
+          if (++ajaxcntr >= 4096) {
+            ajaxcntr = 0;
+          }
+        }
+      }
+
+      setTimeout(function() { executewidget(); }, 1000);
+    }
+  }
+
+  // Kick it off
+  executewidget();
+
+  //----------------------------------------------------------------------------------------------------
+});
+//]]>
+</script>
+
+<script src="../widgets/javascript/cpu_graphs.js?v=1510914902"></script><script src="../widgets/javascript/ipsec.js?v=1510914902"></script><script src="../widgets/javascript/thermal_sensors.js?v=1510914902"></script><script src="../widgets/javascript/traffic_graph.js?v=1510914902"></script> </div>
+
+
+
+<!-- This use of filemtime() is intended to fool the browser into reloading the file (not using the cached version) if the file is changed -->
+
+<script src="../vendor/jquery/jquery-1.12.0.min.js?v=1510914902"></script>
+<script src="../vendor/jquery/jquery-ui-1.11.4.min.js?v=1510914902"></script>
+<script src="../vendor/bootstrap/js/bootstrap.min.js?v=1510914902"></script>
+<script src="../js/pfSense.js?v=1510914901"></script>
+<script src="../js/pfSenseHelpers.js?v=1510914901"></script>
+<script src="../js/polyfills.js?v=1510914901"></script>
+<script src="../vendor/sortable/sortable.js?v=1510914902"></script>
+
+<script type="text/javascript">
+  //<![CDATA[
+    // Un-hide the "Top of page" icons if the page is larger than the window
+    if ($(document).height() > $(window).height()) {
+      $('[id^=tp]').show();
+    }
+  //]]>
+</script>
+<script type="text/javascript">CsrfMagic.end();</script>
+
+
+</body>
+</html>
+
